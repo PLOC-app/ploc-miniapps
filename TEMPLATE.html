@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- Shown in PLOC: short name and an icon name from site/icons (without ".svg"). -->
+<meta name="ploc:name" content="My mini app">
+<meta name="ploc:icon" content="puzzle">
+<!-- Gallery header: all required. -->
+<meta name="description" content="One sentence saying what the mini app shows or does.">
+<meta name="author" content="your-github-username">
+<meta name="ploc:version" content="1.0.0">
+<meta name="ploc:category" content="misc">       <!-- dashboard, cellar, tasting, discovery, organization, tools, fun, misc -->
+<meta name="ploc:permissions" content="read">    <!-- read (changes nothing) or write (saves, deletes, consumes...) -->
+<title>My mini app</title>
+<style>
+    :root { color-scheme: light dark; --bg: #f5f0eb; --card: #fff; --text: #2c2c2c; --muted: #777; --accent: #7b2d42; }
+    @media (prefers-color-scheme: dark) {
+        :root { --bg: #1c1a1b; --card: #2a2627; --text: #f1ecea; --muted: #a39b98; --accent: #d0657f; }
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: -apple-system, system-ui, Arial, sans-serif; margin: 0; padding: 20px; padding-bottom: calc(20px + env(safe-area-inset-bottom)); background: var(--bg); color: var(--text); }
+    h1 { color: var(--accent); margin: 0 0 16px; font-size: 1.4rem; }
+    .card { background: var(--card); border-radius: 12px; padding: 20px; }
+    .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+    <h1>My mini app</h1>
+    <div class="card" id="out">Loading...</div>
+
+<script>
+// Everything in an IIFE: never declare `sdk`, `auth` or a name of the SDK (Order, Wine, Rack, Collection...).
+(() => {
+    const out = document.getElementById("out");
+
+    async function init() {
+        // `sdk` is injected by PLOC. In a normal browser it is missing: say so (or show demo data).
+        if (typeof sdk === "undefined") {
+            out.textContent = "Open this mini app from PLOC.";
+            return;
+        }
+        try {
+            const wines = await sdk.cellar.wine.getAll();
+            out.textContent = wines.count + " wines";   // user data: textContent, never innerHTML
+        } catch (e) {
+            out.textContent = "Something went wrong: " + e.message;
+        }
+    }
+
+    init();
+})();
+</script>
+</body>
+</html>
