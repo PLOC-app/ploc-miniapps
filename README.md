@@ -56,11 +56,6 @@ ploc://miniapp?v=1&url=<URL-encoded address of the mini app>
 
 For example `ploc://miniapp?v=1&url=https%3A%2F%2Fploc-app.github.io%2Fploc-miniapps%2Ftonight-pick%2F`.
 
-### One-time setup
-
-In the GitHub repository settings: *Pages* → source **GitHub Actions**; *Branches* → protect `main` and require a
-review from Code Owners.
-
 ## License
 
 [MIT](LICENSE)
